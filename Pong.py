@@ -25,8 +25,8 @@ player_two_location = SCREEN_Y / 2 - 15
 # Ball location and velocity
 ball_x = SCREEN_X / 2
 ball_y = SCREEN_Y / 2
-vel_x = 1
-vel_y = 1
+vel_x = -5
+vel_y = -5
 
 # Defining colors
 BLACK = (0, 0, 0)
@@ -60,10 +60,21 @@ while running:
 				player_two_location += 5
 
 
-	# Game logic
+	### Game logic ###
+
+	# Vertical Bounce
 	if ball_y - 8 < 0 or ball_y + 8 > SCREEN_Y:
 		vel_y = -vel_y
 
+	# Left player bounce
+	if ball_x - 8 > 15 and ball_x - 8 < 30:
+		vel_x = -vel_x 
+
+	# Right player bounce
+	if ball_x + 8 < SCREEN_X - 15 and ball_x + 8 > SCREEN_X - 30:
+		vel_x = -vel_x 
+
+	# Update ball position
 	ball_x += vel_x
 	ball_y += vel_y
 
