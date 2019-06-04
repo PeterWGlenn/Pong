@@ -42,15 +42,15 @@ while running:
 			keys = pygame.key.get_pressed()
 
 			# Player one controls
-			if keys[pygame.K_w]:
+			if keys[pygame.K_w] and player_one_location - 5 > 0:
 				player_one_location -= 5
-			if keys[pygame.K_s]:
+			if keys[pygame.K_s] and player_one_location + 5 < SCREEN_Y - 50:
 				player_one_location += 5
 
 			# Player two controls
-			if keys[pygame.K_UP]:
+			if keys[pygame.K_UP] and player_two_location - 5 > 0:
 				player_two_location -= 5
-			if keys[pygame.K_DOWN]:
+			if keys[pygame.K_DOWN] and player_two_location + 5 < SCREEN_Y - 50:
 				player_two_location += 5
 
 
