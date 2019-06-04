@@ -14,8 +14,9 @@ import pygame
 pygame.init()
 size = (SCREEN_X, SCREEN_Y)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("test name")
+pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
+pygame.key.set_repeat(1)
 
 # Player locations
 player_one_location = SCREEN_Y / 2 - 15
@@ -29,10 +30,29 @@ GREEN = (0, 255, 0)
 running = True
 while running:
 
-	# Test for closed game window
+	# Event Listeners
 	for event in pygame.event.get():
+		# Closed window
 		if event.type == pygame.QUIT:
 			running = False
+
+		# Key Press
+		if event.type == pygame.KEYDOWN:
+
+			keys = pygame.key.get_pressed()
+
+			# Player one controls
+			if keys[pygame.K_w]:
+				player_one_location -= 5
+			if keys[pygame.K_s]:
+				player_one_location += 5
+
+			# Player two controls
+			if keys[pygame.K_UP]:
+				player_two_location -= 5
+			if keys[pygame.K_DOWN]:
+				player_two_location += 5
+
 
 	# Game logic
 
