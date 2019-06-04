@@ -22,6 +22,12 @@ pygame.key.set_repeat(1)
 player_one_location = SCREEN_Y / 2 - 15
 player_two_location = SCREEN_Y / 2 - 15
 
+# Ball location and velocity
+ball_x = SCREEN_X / 2
+ball_y = SCREEN_Y / 2
+vel_x = 1
+vel_y = 1
+
 # Defining colors
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
@@ -55,7 +61,11 @@ while running:
 
 
 	# Game logic
+	if ball_y - 8 < 0 or ball_y + 8 > SCREEN_Y:
+		vel_y = -vel_y
 
+	ball_x += vel_x
+	ball_y += vel_y
 
 	# Draw Screen 
 	screen.fill(BLACK)
@@ -63,6 +73,8 @@ while running:
 	pygame.draw.rect(screen, GREEN, [15, player_one_location, 15, 50], 0)
 	# Draw Player 2
 	pygame.draw.rect(screen, GREEN, [SCREEN_X - 30, player_two_location, 15, 50], 0)
+	# Draw Ball
+	pygame.draw.circle(screen, GREEN, [int(ball_x), int(ball_y)], 8, 0)
 
 	# Update display
 	pygame.display.flip()
