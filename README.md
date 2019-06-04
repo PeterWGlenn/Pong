@@ -1,2 +1,2 @@
-# Python-Pong
+# Pong
 The classic game recreated using Python
