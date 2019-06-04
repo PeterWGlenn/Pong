@@ -25,12 +25,21 @@ player_two_location = SCREEN_Y / 2 - 15
 # Ball location and velocity
 ball_x = SCREEN_X / 2
 ball_y = SCREEN_Y / 2
-vel_x = -5
-vel_y = -5
+vel_x = -4
+vel_y = -4
 
 # Defining colors
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+
+# Reset Ball Location and Velocity
+def resetBallLoc(newX, newY):
+	global ball_x, ball_y, vel_x, vel_y
+	ball_x = newX
+	ball_y = newY
+	vel_x = -vel_x
+	vel_y = -vel_y
 
 # Main Game Loop
 running = True
@@ -67,16 +76,26 @@ while running:
 		vel_y = -vel_y
 
 	# Left player bounce
-	if ball_x - 8 > 15 and ball_x - 8 < 30:
+	if ball_x - 8 > 15 and ball_x - 8 < 30 and ball_y - 8 > player_one_location and ball_y + 8 < player_one_location + 50:
 		vel_x = -vel_x 
 
 	# Right player bounce
-	if ball_x + 8 < SCREEN_X - 15 and ball_x + 8 > SCREEN_X - 30:
+	if ball_x + 8 < SCREEN_X - 15 and ball_x + 8 > SCREEN_X - 30 and ball_y - 8 > player_two_location and ball_y + 8 < player_two_location + 50:
 		vel_x = -vel_x 
 
 	# Update ball position
 	ball_x += vel_x
 	ball_y += vel_y
+
+	# Check for points
+
+	# Player one scores
+	if ball_x - 8 < 0:
+		resetBallLoc(30 + 8, player_one_location + 50 / 2)
+
+	# Player two scores
+	if ball_x + 8 > SCREEN_X:
+		resetBallLoc(SCREEN_X - 30 - 8, player_two_location + 50 / 2)
 
 	# Draw Screen 
 	screen.fill(BLACK)
@@ -85,7 +104,7 @@ while running:
 	# Draw Player 2
 	pygame.draw.rect(screen, GREEN, [SCREEN_X - 30, player_two_location, 15, 50], 0)
 	# Draw Ball
-	pygame.draw.circle(screen, GREEN, [int(ball_x), int(ball_y)], 8, 0)
+	pygame.draw.circle(screen, RED, [int(ball_x), int(ball_y)], 8, 0)
 
 	# Update display
 	pygame.display.flip()
