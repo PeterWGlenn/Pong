@@ -18,7 +18,7 @@ pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
 pygame.key.set_repeat(1)
 pygame.font.init()
-GAME_FONT = pygame.font.SysFont('Helvetica', 50)
+GAME_FONT = pygame.font.Font('SevenSegment.ttf', 100)
 
 # Player locations and scores
 player_one_location = SCREEN_Y / 2 - 15
@@ -111,9 +111,9 @@ while running:
 	screen.fill(BLACK)
 	# Write Score Text
 	text_surface_player_one = GAME_FONT.render(str(player_one_score), False, DARK_GREY)
-	screen.blit(text_surface_player_one, (20, 10))
+	screen.blit(text_surface_player_one, (50, 10))
 	text_surface_player_two = GAME_FONT.render(str(player_two_score), False, DARK_GREY)
-	screen.blit(text_surface_player_two, (SCREEN_X - GAME_FONT.size(str(player_two_score))[0] - 20, 10))
+	screen.blit(text_surface_player_two, (SCREEN_X - GAME_FONT.size(str(player_two_score))[0] - 50, 10))
 	# Draw Player 1
 	pygame.draw.rect(screen, GREEN, [15, player_one_location, 15, 50], 0)
 	# Draw Player 2
