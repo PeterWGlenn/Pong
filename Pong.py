@@ -19,6 +19,8 @@ clock = pygame.time.Clock()
 pygame.key.set_repeat(1)
 pygame.font.init()
 GAME_FONT = pygame.font.Font('SevenSegment.ttf', 100)
+BALL_IMAGE = pygame.image.load("ball.png")
+pygame.display.set_icon(BALL_IMAGE)
 
 # Player locations and scores
 player_one_location = SCREEN_Y / 2 - 15
@@ -79,16 +81,16 @@ while running:
 	### Game logic ###
 
 	# Vertical Bounce
-	if ball_y - 8 < 0 or ball_y + 8 > SCREEN_Y:
+	if ball_y - 10 < 0 or ball_y + 10 > SCREEN_Y:
 		vel_y = -vel_y
 
 	# Left player bounce
-	if ball_x - 8 > 15 and ball_x - 8 < 30 and ball_y - 8 > player_one_location and ball_y + 8 < player_one_location + 50:
+	if ball_x - 10 > 15 and ball_x - 10 < 30 and ball_y + 10 > player_one_location and ball_y - 10 < player_one_location + 50:
 		if vel_x < 0:
 			vel_x = -vel_x
 
 	# Right player bounce
-	if ball_x + 8 < SCREEN_X - 15 and ball_x + 8 > SCREEN_X - 30 and ball_y - 8 > player_two_location and ball_y + 8 < player_two_location + 50:
+	if ball_x + 10 < SCREEN_X - 15 and ball_x + 10 > SCREEN_X - 30 and ball_y + 10 > player_two_location and ball_y - 10 < player_two_location + 50:
 		if vel_x > 0:
 			vel_x = -vel_x
 
@@ -99,29 +101,35 @@ while running:
 	# Check for points
 
 	# Player one scores
-	if ball_x - 8 > SCREEN_X:
+	if ball_x - 10 > SCREEN_X:
 		resetBallLoc(SCREEN_X / 2, player_two_location + 50 / 2)
 		player_one_score += 1
 	# Player two scores
-	if ball_x + 8 < 0:
+	if ball_x + 10 < 0:
 		resetBallLoc(SCREEN_X / 2, player_one_location + 50 / 2)
 		player_two_score += 1
 
 	# Draw Screen 
 	screen.fill(BLACK)
+
 	# Write Score Text
 	text_surface_player_one = GAME_FONT.render(str(player_one_score), False, DARK_GREY)
 	screen.blit(text_surface_player_one, (50, 10))
 	text_surface_player_two = GAME_FONT.render(str(player_two_score), False, DARK_GREY)
 	screen.blit(text_surface_player_two, (SCREEN_X - GAME_FONT.size(str(player_two_score))[0] - 50, 10))
+
 	# Draw Player 1
 	pygame.draw.rect(screen, GREEN, [15, player_one_location, 15, 50], 0)
+
 	# Draw Player 2
 	pygame.draw.rect(screen, GREEN, [SCREEN_X - 30, player_two_location, 15, 50], 0)
+
 	# Draw Screen Divider
 	pygame.draw.rect(screen, DARK_GREY, [SCREEN_X / 2 - 1, 0, 2, SCREEN_Y], 0)
+
 	# Draw Ball
-	pygame.draw.circle(screen, GREEN, [int(ball_x), int(ball_y)], 8, 0)
+	#####pygame.draw.circle(screen, GREEN, [int(ball_x), int(ball_y)], 8, 0)
+	screen.blit(BALL_IMAGE, [int(ball_x) - 10, int(ball_y) - 10])
 
 	# Update display
 	pygame.display.flip()
