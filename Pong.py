@@ -17,9 +17,11 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
 pygame.key.set_repeat(1)
-pygame.font.init()
 GAME_FONT = pygame.font.Font('SevenSegment.ttf', 100)
 BALL_IMAGE = pygame.image.load("ball.png")
+
+POP_SOUND = pygame.mixer.Sound("pop.wav")
+
 pygame.display.set_icon(BALL_IMAGE)
 
 # Player locations and scores
@@ -81,18 +83,21 @@ while running:
 	### Game logic ###
 
 	# Vertical Bounce
-	if ball_y - 10 < 0 or ball_y + 10 > SCREEN_Y:
+	if ball_y - 10 <= 0 or ball_y + 10 >= SCREEN_Y:
 		vel_y = -vel_y * 1.05
+		POP_SOUND.play()
 
 	# Left player bounce
-	if ball_x - 10 > 15 and ball_x - 10 < 30 and ball_y + 10 > player_one_location and ball_y - 10 < player_one_location + 50:
+	if ball_x - 10 >= 15 and ball_x - 10 <= 30 and ball_y + 10 >= player_one_location and ball_y - 10 <= player_one_location + 50:
 		if vel_x < 0:
 			vel_x = -vel_x * 1.1
+			POP_SOUND.play()
 
 	# Right player bounce
-	if ball_x + 10 < SCREEN_X - 15 and ball_x + 10 > SCREEN_X - 30 and ball_y + 10 > player_two_location and ball_y - 10 < player_two_location + 50:
+	if ball_x + 10 <= SCREEN_X - 15 and ball_x + 10 >= SCREEN_X - 30 and ball_y + 10 >= player_two_location and ball_y - 10 <= player_two_location + 50:
 		if vel_x > 0:
 			vel_x = -vel_x * 1.1
+			POP_SOUND.play()
 
 	# Update ball position
 	ball_x += vel_x
