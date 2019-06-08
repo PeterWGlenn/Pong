@@ -9,6 +9,9 @@ FRAMERATE = 60
 SCREEN_X = 600
 SCREEN_Y = 400
 
+# Random
+import random
+
 # Setting up pygame
 import pygame
 pygame.init()
@@ -25,6 +28,23 @@ SCORE_SOUND = pygame.mixer.Sound("ding.wav")
 
 pygame.display.set_icon(BALL_IMAGE)
 
+# Defining colors
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+YELLOW = (255, 255, 0)
+WHITE = (255, 255, 255)
+DARK_GREY = (128, 128, 128)
+
+# Returns -1 or 1
+def plus_or_minus():
+	rand = random.randint(1, 3)
+	if rand == 1:
+		rand = 1
+	else:
+		rand = -1
+	return rand
+
 # Player locations and scores
 player_one_location = SCREEN_Y / 2 - 15
 player_two_location = SCREEN_Y / 2 - 15
@@ -34,24 +54,17 @@ player_two_score = 0
 # Ball location and velocity
 ball_x = SCREEN_X / 2
 ball_y = SCREEN_Y / 2
-vel_x = -3
-vel_y = -3
-
-# Defining colors
-BLACK = (0, 0, 0)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-YELLOW = (255, 255, 0)
-WHITE = (255, 255, 255)
-DARK_GREY = (128, 128, 128)
+vel_x = 3 * plus_or_minus()
+vel_y = 3 * plus_or_minus()
 
 # Reset Ball Location and Velocity
 def resetBallLoc(newX, newY):
 	global ball_x, ball_y, vel_x, vel_y
+
 	ball_x = newX
 	ball_y = newY
-	vel_x = -3
-	vel_y = -3
+	vel_x = 3 * plus_or_minus()
+	vel_y = 3 * plus_or_minus()
 
 # Main Game Loop
 running = True
