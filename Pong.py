@@ -21,6 +21,7 @@ GAME_FONT = pygame.font.Font('SevenSegment.ttf', 100)
 BALL_IMAGE = pygame.image.load("ball.png")
 
 POP_SOUND = pygame.mixer.Sound("pop.wav")
+SCORE_SOUND = pygame.mixer.Sound("ding.wav")
 
 pygame.display.set_icon(BALL_IMAGE)
 
@@ -109,10 +110,12 @@ while running:
 	if ball_x - 10 > SCREEN_X:
 		resetBallLoc(SCREEN_X / 2, player_two_location + 50 / 2)
 		player_one_score += 1
+		SCORE_SOUND.play()
 	# Player two scores
 	if ball_x + 10 < 0:
 		resetBallLoc(SCREEN_X / 2, player_one_location + 50 / 2)
 		player_two_score += 1
+		SCORE_SOUND.play()
 
 	# Draw Screen 
 	screen.fill(BLACK)
