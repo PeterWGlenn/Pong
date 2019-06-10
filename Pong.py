@@ -58,11 +58,11 @@ vel_x = 3 * plus_or_minus()
 vel_y = 3 * plus_or_minus()
 
 # Reset Ball Location and Velocity
-def resetBallLoc(newX, newY):
-	global ball_x, ball_y, vel_x, vel_y
+def resetBallLoc():
+	global SCREEN_X, SCREEN_Y, ball_x, ball_y, vel_x, vel_y
 
-	ball_x = newX
-	ball_y = newY
+	ball_x = SCREEN_X / 2
+	ball_y = random.randint(10, SCREEN_Y - 10)
 	vel_x = 3 * plus_or_minus()
 	vel_y = 3 * plus_or_minus()
 
@@ -121,12 +121,12 @@ while running:
 
 	# Player one scores
 	if ball_x - 10 > SCREEN_X:
-		resetBallLoc(SCREEN_X / 2, player_two_location + 50 / 2)
+		resetBallLoc()
 		player_one_score += 1
 		SCORE_SOUND.play()
 	# Player two scores
 	if ball_x + 10 < 0:
-		resetBallLoc(SCREEN_X / 2, player_one_location + 50 / 2)
+		resetBallLoc()
 		player_two_score += 1
 		SCORE_SOUND.play()
 
