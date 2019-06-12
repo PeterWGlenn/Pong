@@ -22,11 +22,12 @@ clock = pygame.time.Clock()
 pygame.key.set_repeat(1)
 GAME_FONT = pygame.font.Font('SevenSegment.ttf', 100)
 BALL_IMAGE = pygame.image.load("ball.png")
+ICON_IMAGE = pygame.image.load("icon.png")
 
 POP_SOUND = pygame.mixer.Sound("pop.wav")
 SCORE_SOUND = pygame.mixer.Sound("ding.wav")
 
-pygame.display.set_icon(BALL_IMAGE)
+pygame.display.set_icon(ICON_IMAGE)
 
 # Defining colors
 BLACK = (0, 0, 0)
