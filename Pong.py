@@ -97,33 +97,33 @@ while running:
 
 	### Game logic ###
 
-	# Check one pixel at a time
-	counter_x = abs(vel_x)
-	counter_y = abs(vel_y)
+	# Check one pixel at a time, with a max absolute velocity of 1000
+	counter_x = min(abs(vel_x), 1000)
+	counter_y = min(abs(vel_y), 1000)
 
 	while counter_x > 0 or counter_y > 0:
 
 		# Vertical Bounce
-		if ball_y - 10 <= 0 or ball_y + 10 >= SCREEN_Y:
+		if (ball_y - 10 <= 0 and vel_y < 0) or (ball_y + 10 >= SCREEN_Y and vel_y > 0):
 			vel_y = -vel_y * 1.05
 			POP_SOUND.play()
 
 		# Left player bounce
-		if ball_x - 10 >= 15 and ball_x - 10 <= 30 and ball_y + 10 >= player_one_location and ball_y - 10 <= player_one_location + 50:
+		if vel_x < 0 and ball_x - 10 >= 15 and ball_x - 10 <= 30 and ball_y + 10 >= player_one_location and ball_y - 10 <= player_one_location + 50:
 			if vel_x < 0:
 				vel_x = -vel_x * 1.1
 				POP_SOUND.play()
 
 		# Right player bounce
-		if ball_x + 10 <= SCREEN_X - 15 and ball_x + 10 >= SCREEN_X - 30 and ball_y + 10 >= player_two_location and ball_y - 10 <= player_two_location + 50:
+		if vel_x > 0 and ball_x + 10 <= SCREEN_X - 15 and ball_x + 10 >= SCREEN_X - 30 and ball_y + 10 >= player_two_location and ball_y - 10 <= player_two_location + 50:
 			if vel_x > 0:
 				vel_x = -vel_x * 1.1
 				POP_SOUND.play()
 
 		# Update ball position
-		if counter_x >= 0:
+		if counter_x > 0:
 			ball_x += abs(vel_x) / vel_x
-		if counter_y >= 0:
+		if counter_y > 0:
 			ball_y += abs(vel_y) / vel_y
 
 		# Update Loop Counters
